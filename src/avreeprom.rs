@@ -102,9 +102,10 @@ mod storage {
                     // Now we know that all bits should be erased.
                     self.0.eecr.write(|w| {
                         w.eempe().set_bit(); // Set Master Write Enable bit
-                        w.eepm().val_0x01(); // ...and Erase-only mode..
-                        w.eepe().set_bit() // Start Erase-only operation.
+                        w.eepm().val_0x01() // ...and Erase-only mode..
+                        
                     });
+                    self.0.eecr.write(|w| {w.eepe().set_bit()}); // Start Erase-only operation.
                 }
             });
 
