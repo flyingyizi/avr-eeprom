@@ -103,9 +103,8 @@ mod storage {
                     self.0.eecr.write(|w| {
                         w.eempe().set_bit(); // Set Master Write Enable bit
                         w.eepm().val_0x01() // ...and Erase-only mode..
-                        
                     });
-                    self.0.eecr.write(|w| {w.eepe().set_bit()}); // Start Erase-only operation.
+                    self.0.eecr.write(|w| w.eepe().set_bit()); // Start Erase-only operation.
                 }
             });
 
