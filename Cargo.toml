@@ -1,0 +1,33 @@
+[package]
+name = "avr-eeprom"
+version = "0.1.0"
+edition = "2021"
+keywords = ["avr", "eeprom"]
+
+[dependencies]
+cfg-if = "1.0.0"
+embedded-storage = "0.2"
+
+arduino-hal = {git="https://github.com/rahix/avr-hal",rev="1aacefb335517f85d0de858231e11055d9768cdf",optional=true }
+avr-device = { version = "0.3", optional = true}
+
+#[profile.dev]
+#lto       = true
+#opt-level = 1
+#
+#[profile.release]
+#lto       = true
+
+
+[features]
+
+mcuavr-arduino-diecimila = ["arduino-hal/arduino-diecimila","avr-device", ]
+mcuavr-arduino-leonardo = ["arduino-hal/arduino-leonardo","avr-device",   ]
+mcuavr-sparkfun-promicro = ["arduino-hal/sparkfun-promicro","avr-device", ]
+mcuavr-arduino-mega2560 = ["arduino-hal/arduino-mega2560","avr-device",   ]
+mcuavr-arduino-nano = ["arduino-hal/arduino-nano","avr-device",           ]
+mcuavr-arduino-uno = ["arduino-hal/arduino-uno","avr-device",             ]
+mcuavr-trinket = ["arduino-hal/trinket","avr-device",                     ]
+mcuavr-nano168 = ["arduino-hal/nano168","avr-device",                     ]
+default = ["mcuavr-arduino-uno",]
+

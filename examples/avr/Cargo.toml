@@ -1,0 +1,31 @@
+[package]
+authors = ["flyingyizi <flyingyizi@gmail.com>"]
+edition = "2018"
+name = "ssd1306_eeprom"
+version = "0.1.0"
+publish = false
+
+[dependencies]
+panic-halt = "0.2.0"
+ufmt = "0.1.0"
+ 
+avr-eeprom ={path = "../../../avr-eeprom/", default-features = false, features = ["mcuavr-arduino-uno"]}
+
+ssd1306 = "0.7.0"
+embedded-graphics = {version ="0.7.1" }
+
+embedded-fonts = {git="https://github.com/flyingyizi/embedded-fonts"}
+#postcard = {version="*"}
+
+# Configure the build for minimal size - AVRs have very little program memory
+[profile.dev]
+panic = "abort"
+lto = true
+opt-level = "s"
+
+[profile.release]
+panic = "abort"
+codegen-units = 1
+#debug = true
+lto = true
+opt-level = "s"

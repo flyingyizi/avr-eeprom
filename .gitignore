@@ -1,0 +1,10 @@
+/target
+/examples/*/target
+*.lock
+*.workspace
+*.hex.asm
+*.elf
+examples/avr/Project Backups
+examples/stm32/Project Backups
+*.eep
+*.exe
