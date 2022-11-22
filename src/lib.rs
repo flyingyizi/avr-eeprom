@@ -7,11 +7,11 @@ mod avreeprom;
 
 pub use avreeprom::Eeprom;
 // re export
-pub use embedded_storage;
 /// re-export
 pub use arduino_hal;
 /// re-export
 pub use avr_device;
+pub use embedded_storage;
 
 // #[cfg(test)]
 // pub mod testutil;
