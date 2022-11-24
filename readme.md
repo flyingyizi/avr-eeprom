@@ -24,6 +24,7 @@ in you app, at least one device is selected in your app that use this crate.
 
 this sample shows a vaild dependencies description:
 
+```toml
 [dependencies]
 
 # its related avr-device version is "0.3" 
@@ -32,3 +33,4 @@ avr-eeprom ={path = "../../../avr-eeprom/" }
 # notes, the version of avr-device used in arduino-hal, must be equal to the version of avr-device used in avr-eeprom.
 # below arduino-hal rev, its inner related avr-device version is "0.3"
 arduino-hal = {git="https://github.com/rahix/avr-hal",rev="1aacefb335517f85d0de858231e11055d9768cdf",features = ["arduino-nano"]}
+```
