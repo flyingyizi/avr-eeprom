@@ -8,8 +8,11 @@ publish = false
 [dependencies]
 panic-halt = "0.2.0"
 ufmt = "0.1.0"
- 
-avr-eeprom ={path = "../../../avr-eeprom/", default-features = false, features = ["mcuavr-arduino-uno"]}
+
+arduino-hal = {git="https://github.com/rahix/avr-hal",rev="1aacefb335517f85d0de858231e11055d9768cdf", features = ["arduino-uno"] }
+
+
+avr-eeprom ={path = "../../../avr-eeprom/"}
 
 ssd1306 = "0.7.0"
 embedded-graphics = {version ="0.7.1" }

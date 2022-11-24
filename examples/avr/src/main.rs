@@ -16,12 +16,13 @@ use generated::{LINE_HEIGHT, REPLACEMENT_CHARACTER, S_DATA_LEN, S_GLYPHS};
 
 use embedded_graphics::{pixelcolor::BinaryColor, prelude::*, text::Text};
 
-use avr_eeprom::{
-    arduino_hal, arduino_hal::prelude::*, embedded_storage::nor_flash::ReadNorFlash, Eeprom,
-};
+use arduino_hal::prelude::*;
+use avr_eeprom::{impl_eeprom_traditional, prelude::*};
 use ssd1306::{prelude::*, I2CDisplayInterface, Ssd1306};
 
 use panic_halt as _;
+
+impl_eeprom_traditional! {Eeprom,arduino_hal::hal::pac::EEPROM,1024}
 
 #[arduino_hal::entry]
 fn main() -> ! {
@@ -35,9 +36,8 @@ fn main() -> ! {
     .void_unwrap();
 
     ////////////////////////////////
-    let ptr = unsafe { &*arduino_hal::hal::pac::EEPROM::ptr() };
     // instance ep has embedded_storage capability
-    let mut ep = Eeprom(&ptr);
+    let mut ep = Eeprom {};
     ufmt::uwriteln!(&mut serial, "eeprom capacity is:{}\r", ep.capacity()).void_unwrap();
     let mut data = [0_u8; S_DATA_LEN];
     let _start_address: u16 = 0;

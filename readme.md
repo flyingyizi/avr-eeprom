@@ -3,17 +3,11 @@ implement embedded_storage trait for avr EEPROM
 
 # example overview
 ```rust
-use avr_eeprom::{Eeprom, embedded_storage::nor_flash::ReadNorFlash};
-let  ptr =unsafe{ &*arduino_hal::hal::pac::EEPROM::ptr()};
-
-// instance ep has embedded_storage capability
-let mut ep = Eeprom(& ptr);
+use avr_eeprom::prelude::*;
+avr_eeprom::impl_eeprom_traditional! {Eeprom,avr_device::atmega328p::EEPROM,1024}
+let mut ep = Eeprom {};
 ufmt::uwriteln!(&mut serial, "eeprom capacity is:{}\r", ep.capacity()).void_unwrap();
-
-//	starting the read operation at start_address(the given address offset), and reading `data.len()` bytes.
-const S_DATA_LEN:usize=256;
-let mut data = [0_u8; S_DATA_LEN];
-let start_address: u32 = 0;
+let mut data = [0_u8; 256];
 if ep.read(start_address, &mut data).is_err() {
     ufmt::uwriteln!(&mut serial, "read eeprom fail:\r").void_unwrap();
     loop {}
@@ -23,3 +17,18 @@ if ep.read(start_address, &mut data).is_err() {
 ## example in proteus
 
 see examples dir
+
+## attention
+
+in you app, at least one device is selected in your app that use this crate. 
+
+this sample shows a vaild dependencies description:
+
+[dependencies]
+
+# its related avr-device version is "0.3" 
+avr-eeprom ={path = "../../../avr-eeprom/" }
+
+# notes, the version of avr-device used in arduino-hal, must be equal to the version of avr-device used in avr-eeprom.
+# below arduino-hal rev, its inner related avr-device version is "0.3"
+arduino-hal = {git="https://github.com/rahix/avr-hal",rev="1aacefb335517f85d0de858231e11055d9768cdf",features = ["arduino-nano"]}
